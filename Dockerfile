@@ -7,7 +7,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY main.py .
 
-EXPOSE 8080
+ENV PORT=8080
 
-# On lance simplement le script Python
-CMD ["python", "main.py"]
+CMD uvicorn main:app --host 0.0.0.0 --port ${PORT}
