@@ -2,6 +2,7 @@ import os
 import httpx
 from mcp.server.fastmcp import FastMCP
 
+
 # Initialisation du serveur MCP
 # Ce nom aide à identifier ton serveur dans les logs
 mcp = FastMCP("TheirStack Technographics")
@@ -55,3 +56,13 @@ async def get_company_technologies(
             
         except Exception as e:
             return f"Erreur de connexion à l'API TheirStack: {str(e)}"
+
+
+# ... le reste de ton code (imports, @mcp.tool, etc.) ...
+
+if __name__ == "__main__":
+    # Cloud Run injecte la variable d'environnement PORT (par défaut 8080)
+    port = int(os.environ.get("PORT", "8080"))
+    
+    # On lance FastMCP en forçant l'hôte sur 0.0.0.0
+    mcp.run(transport="sse", host="0.0.0.0", port=port)
